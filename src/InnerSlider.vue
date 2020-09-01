@@ -304,6 +304,12 @@ export default {
       }, speed)
     },
     onWindowResized(setTrackStyle) {
+      if (window) {
+        const userAgent = window.navigator.userAgent.toLowerCase()
+        if (userAgent.match(/(msie|MSIE)/) || userAgent.match(/(T|t)rident/)) {
+          return
+        }
+      }
       if (this.debouncedResize) this.debouncedResize.cancel()
       this.debouncedResize = debounce(
         () => this.resizeWindow(setTrackStyle),
